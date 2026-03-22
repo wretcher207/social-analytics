@@ -16,6 +16,7 @@ import { RecommendPage } from '@/pages/recommend/RecommendPage'
 import { DabTimerPage } from '@/pages/dab-timer/DabTimerPage'
 import { ProfilePage } from '@/pages/profile/ProfilePage'
 import { GoalsPage } from '@/pages/goals/GoalsPage'
+import { ConsumptionPage } from '@/pages/consumption/ConsumptionPage'
 
 export default function App() {
   return (
@@ -55,6 +56,9 @@ export default function App() {
 
             {/* Dab Timer */}
             <Route path="/dab-timer"           element={<DabTimerPage />} />
+
+            {/* Consumption log */}
+            <Route path="/log"                 element={<ConsumptionPage />} />
 
             {/* Goals */}
             <Route path="/goals"               element={<GoalsPage />} />

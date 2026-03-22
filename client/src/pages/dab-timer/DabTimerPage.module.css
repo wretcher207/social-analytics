@@ -193,6 +193,24 @@
 }
 .btnReset:hover { color: var(--color-text-secondary); }
 
+.btnLog {
+  background: none;
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+.btnLog:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.btnLogged {
+  background: none;
+  color: #7dc98c;
+  border-color: #7dc98c44;
+  cursor: default;
+  opacity: 0.7;
+}
+
 /* Presets */
 .presets {
   display: flex;

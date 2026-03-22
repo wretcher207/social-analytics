@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { RotateCcw, Play, Pause, Thermometer } from 'lucide-react'
+import { RotateCcw, Play, Pause, Thermometer, ClipboardCheck } from 'lucide-react'
+import { createLog } from '@/lib/consumption'
 import styles from './DabTimerPage.module.css'
 
 // ── Presets ───────────────────────────────────────────────────────────────────
@@ -111,6 +112,7 @@ export function DabTimerPage() {
   const [remaining,     setRemaining]     = useState(null)    // hot mode
   const [elapsed,       setElapsed]       = useState(0)       // cold mode
   const [soundEnabled,  setSoundEnabled]  = useState(true)
+  const [logged,        setLogged]        = useState(false)
 
   const intervalRef  = useRef(null)
   const audioCtxRef  = useRef(null)
@@ -190,7 +192,17 @@ export function DabTimerPage() {
     setPhase('idle')
     setRemaining(null)
     setElapsed(0)
+    setLogged(false)
     warnedRef.current = false
+  }
+
+  async function handleLogSession() {
+    try {
+      await createLog({ method: 'dab', started_at: new Date().toISOString() })
+      setLogged(true)
+    } catch (_) {
+      // non-blocking — timer still works
+    }
   }
 
   // Cleanup on unmount
@@ -291,6 +303,17 @@ export function DabTimerPage() {
           <button type="button" className={styles.btnReset} onClick={handleReset}>
             <RotateCcw size={14} strokeWidth={1.5} />
             Reset
+          </button>
+        )}
+        {isDone && (
+          <button
+            type="button"
+            className={logged ? styles.btnLogged : styles.btnLog}
+            onClick={handleLogSession}
+            disabled={logged}
+          >
+            <ClipboardCheck size={14} strokeWidth={1.5} />
+            {logged ? 'Logged' : 'Save to log'}
           </button>
         )}
       </div>
