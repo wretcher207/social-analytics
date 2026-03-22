@@ -6,6 +6,7 @@ import {
   BarChart2,
   Sparkles,
   Timer,
+  Target,
   User,
 } from 'lucide-react'
 import styles from './Sidebar.module.css'
@@ -17,6 +18,7 @@ const NAV = [
   { to: '/analytics',   label: 'Analytics',      Icon: BarChart2 },
   { to: '/recommend',   label: 'For You',        Icon: Sparkles },
   { to: '/dab-timer',   label: 'Dab Timer',      Icon: Timer },
+  { to: '/goals',       label: 'Goals',          Icon: Target },
 ]
 
 export function Sidebar() {

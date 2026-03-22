@@ -12,6 +12,7 @@ import { consumptionRouter } from './routes/consumption.js'
 import { aiRouter }          from './routes/ai.js'
 import { analyticsRouter }   from './routes/analytics.js'
 import { profileRouter }     from './routes/profile.js'
+import { goalsRouter }       from './routes/goals.js'
 import { errorHandler }      from './middleware/errors.js'
 
 const app = express()
@@ -45,6 +46,7 @@ app.use('/api/consumption',  consumptionRouter)
 app.use('/api/ai',           aiRouter)
 app.use('/api/analytics',    analyticsRouter)
 app.use('/api/profile',      profileRouter)
+app.use('/api/goals',        goalsRouter)
 
 // 404 handler
 app.use((_req, res) => {
