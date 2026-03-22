@@ -4,7 +4,7 @@ import { asyncHandler } from '../middleware/errors.js'
 import { createUserClient, supabaseAdmin } from '../lib/supabase.js'
 import { parseUUID, throwDbError } from '../lib/db.js'
 import { anthropic, AI_MODEL } from '../lib/anthropic.js'
-import { buildIntakePrompt } from '../lib/prompts.js'
+import { buildIntakePrompt, buildRecommendationPrompt, RECOMMENDATION_SYSTEM_PROMPT } from '../lib/prompts.js'
 
 export const aiRouter = Router()
 aiRouter.use(requireAuth)
@@ -159,5 +159,120 @@ aiRouter.post('/process/:entryId', asyncHandler(async (req, res) => {
       inferred_terpenes: parsed.inferred_terpenes ?? [],
       suggested_ratings: parsed.suggested_ratings ?? {},
     },
+  })
+}))
+
+// ── POST /api/ai/recommend ────────────────────────────────────────────────────
+// Personalized recommendations based on the user's full session history.
+// Optional body: { goal: string }
+
+aiRouter.post('/recommend', asyncHandler(async (req, res) => {
+  const db   = createUserClient(req.accessToken)
+  const goal = req.body?.goal ?? null
+
+  // ── Fetch recent journal entries with full context ──────────────────────────
+  const { data: entries, error: jErr } = await db
+    .from('journal_entries')
+    .select(`
+      session_at, overall_rating, effects, negatives, consumption_method,
+      mood_after, energy_after, anxiety_after, pain_after, focus_after,
+      ai_summary,
+      products(id, name, category, thc_pct, cbd_pct, terpenes),
+      strains(id, name, cultivar_type, terpenes)
+    `)
+    .order('session_at', { ascending: false })
+    .limit(30)
+
+  if (jErr) throwDbError(jErr)
+
+  if (!entries?.length) {
+    return res.status(422).json({
+      message: 'You need at least one journal entry before we can generate recommendations.',
+    })
+  }
+
+  // ── Aggregate effect/negative frequency ────────────────────────────────────
+  const effectFreq   = {}
+  const negativeFreq = {}
+  entries.forEach(e => {
+    ;(e.effects   ?? []).forEach(ef => { effectFreq[ef]   = (effectFreq[ef]   ?? 0) + 1 })
+    ;(e.negatives ?? []).forEach(ng => { negativeFreq[ng] = (negativeFreq[ng] ?? 0) + 1 })
+  })
+
+  // ── Top strains by usage + avg rating ──────────────────────────────────────
+  const strainMap = {}
+  entries.forEach(e => {
+    const s = e.strains ?? e.products?.strains
+    if (!s?.id) return
+    if (!strainMap[s.id]) strainMap[s.id] = { ...s, count: 0, ratingSum: 0, ratingCount: 0 }
+    strainMap[s.id].count++
+    if (e.overall_rating != null) {
+      strainMap[s.id].ratingSum   += e.overall_rating
+      strainMap[s.id].ratingCount += 1
+    }
+  })
+  const topStrains = Object.values(strainMap)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8)
+    .map(s => ({
+      ...s,
+      avgRating: s.ratingCount ? +(s.ratingSum / s.ratingCount).toFixed(1) : null,
+    }))
+
+  // ── Top products by usage + avg rating ─────────────────────────────────────
+  const productMap = {}
+  entries.forEach(e => {
+    const p = e.products
+    if (!p?.id) return
+    if (!productMap[p.id]) productMap[p.id] = { ...p, count: 0, ratingSum: 0, ratingCount: 0 }
+    productMap[p.id].count++
+    if (e.overall_rating != null) {
+      productMap[p.id].ratingSum   += e.overall_rating
+      productMap[p.id].ratingCount += 1
+    }
+  })
+  const topProducts = Object.values(productMap)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8)
+    .map(p => ({
+      ...p,
+      avgRating: p.ratingCount ? +(p.ratingSum / p.ratingCount).toFixed(1) : null,
+    }))
+
+  // ── Call Claude ─────────────────────────────────────────────────────────────
+  const userPrompt = buildRecommendationPrompt({
+    entries,
+    topStrains,
+    topProducts,
+    effectFreq,
+    negativeFreq,
+    goal,
+  })
+
+  const message = await anthropic.messages.create({
+    model:      AI_MODEL,
+    max_tokens: 2048,
+    system:     RECOMMENDATION_SYSTEM_PROMPT,
+    messages:   [{ role: 'user', content: userPrompt }],
+  })
+
+  const raw = message.content[0]?.text ?? ''
+
+  let parsed
+  try {
+    const cleaned = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+    parsed = JSON.parse(cleaned)
+  } catch {
+    console.error('[TERP/ai/recommend] Failed to parse Claude response:', raw)
+    return res.status(502).json({ message: 'AI returned an unexpected format. Try again.' })
+  }
+
+  res.json({
+    generated_at:    new Date().toISOString(),
+    session_count:   entries.length,
+    insights:        Array.isArray(parsed.insights)       ? parsed.insights       : [],
+    terpene_goals:   Array.isArray(parsed.terpene_goals)  ? parsed.terpene_goals  : [],
+    profiles:        Array.isArray(parsed.profiles)       ? parsed.profiles       : [],
+    avoid:           Array.isArray(parsed.avoid)          ? parsed.avoid          : [],
   })
 }))

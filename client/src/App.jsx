@@ -12,6 +12,7 @@ import { ProductsPage } from '@/pages/products/ProductsPage'
 import { ProductFormPage } from '@/pages/products/ProductFormPage'
 import { ProductDetailPage } from '@/pages/products/ProductDetailPage'
 import { AnalyticsPage } from '@/pages/analytics/AnalyticsPage'
+import { RecommendPage } from '@/pages/recommend/RecommendPage'
 
 export default function App() {
   return (
@@ -46,8 +47,10 @@ export default function App() {
             {/* Analytics */}
             <Route path="/analytics"           element={<AnalyticsPage />} />
 
+            {/* Recommendations */}
+            <Route path="/recommend"           element={<RecommendPage />} />
+
             {/* Future phases */}
-            <Route path="/recommend"           element={<Placeholder label="For You" />} />
             <Route path="/dab-timer"           element={<Placeholder label="Dab Timer" />} />
           </Route>
 

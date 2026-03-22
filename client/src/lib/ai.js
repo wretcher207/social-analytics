@@ -18,3 +18,12 @@ export function analyzeNotes(payload) {
 export function processEntry(entryId) {
   return api.post(`/ai/process/${entryId}`)
 }
+
+/**
+ * Generate personalized recommendations from the user's session history.
+ *
+ * @param {{ goal?: string }} [payload]
+ */
+export function getRecommendations(payload = {}) {
+  return api.post('/ai/recommend', payload)
+}
