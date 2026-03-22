@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Edit2, Archive, ArchiveX, Plus, BookOpen, GitCompare } from 'lucide-react'
+import { FavoriteBtn } from '@/components/ui/FavoriteBtn'
 import { getProduct, updateProduct } from '@/lib/products'
 import { listEntries } from '@/lib/journal'
 import { createLog } from '@/lib/consumption'
@@ -180,6 +181,7 @@ export function ProductDetailPage() {
           <ArrowLeft size={14} strokeWidth={1.5} /> Products
         </button>
         <div className={styles.topActions}>
+          <FavoriteBtn type="products" id={id} size={13} />
           <Button variant="ghost" size="sm" onClick={() => navigate(`/compare?a=${id}`)}>
             <GitCompare size={12} strokeWidth={1.5} /> Compare
           </Button>

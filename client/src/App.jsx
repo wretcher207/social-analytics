@@ -26,6 +26,7 @@ import { AchievementsPage } from '@/pages/achievements/AchievementsPage'
 import { CalendarPage } from '@/pages/calendar/CalendarPage'
 import { TimelinePage } from '@/pages/timeline/TimelinePage'
 import { ComparePage } from '@/pages/compare/ComparePage'
+import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
 
 export default function App() {
   return (
@@ -92,6 +93,9 @@ export default function App() {
 
             {/* Compare */}
             <Route path="/compare"             element={<ComparePage />} />
+
+            {/* Favorites */}
+            <Route path="/favorites"           element={<FavoritesPage />} />
 
             {/* Search */}
             <Route path="/search"              element={<SearchPage />} />

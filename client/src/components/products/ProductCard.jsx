@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { MacroBar } from './MacroBar'
+import { FavoriteBtn } from '@/components/ui/FavoriteBtn'
 import styles from './ProductCard.module.css'
 
 const CATEGORY_LABELS = {
@@ -39,7 +40,10 @@ export function ProductCard({ product }) {
             </span>
           )}
         </div>
-        {product.archived && <span className={styles.archivedBadge}>Archived</span>}
+        <div className={styles.topRight}>
+          {product.archived && <span className={styles.archivedBadge}>Archived</span>}
+          <FavoriteBtn type="products" id={product.id} size={12} />
+        </div>
       </div>
 
       <div className={styles.main}>

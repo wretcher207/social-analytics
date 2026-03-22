@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Edit2, Trash2 } from 'lucide-react'
+import { FavoriteBtn } from '@/components/ui/FavoriteBtn'
 import { getStrain, deleteStrain } from '@/lib/strains'
 import { listEntries } from '@/lib/journal'
 import { Button } from '@/components/ui/Button'
@@ -68,6 +69,7 @@ export function StrainDetailPage() {
           <ArrowLeft size={14} strokeWidth={1.5} /> Strains
         </button>
         <div className={styles.topActions}>
+          <FavoriteBtn type="strains" id={id} size={13} />
           <Button variant="ghost" size="sm" onClick={() => navigate(`/strains/${id}/edit`)}>
             <Edit2 size={12} strokeWidth={1.5} /> Edit
           </Button>

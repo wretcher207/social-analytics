@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { FavoriteBtn } from '@/components/ui/FavoriteBtn'
 import styles from './StrainCard.module.css'
 
 export const CULTIVAR_COLOR = {
@@ -36,6 +37,7 @@ export function StrainCard({ strain }) {
         >
           {CULTIVAR_LABEL[strain.cultivar_type] ?? strain.cultivar_type ?? 'Unknown'}
         </span>
+        <FavoriteBtn type="strains" id={strain.id} size={12} />
       </div>
 
       <div className={styles.main}>
