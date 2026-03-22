@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import {
   LayoutDashboard,
   BookOpen,
@@ -6,9 +6,8 @@ import {
   BarChart2,
   Sparkles,
   Timer,
-  LogOut,
+  User,
 } from 'lucide-react'
-import { useAuth } from '@/hooks/useAuth'
 import styles from './Sidebar.module.css'
 
 const NAV = [
@@ -21,14 +20,6 @@ const NAV = [
 ]
 
 export function Sidebar() {
-  const { signOut } = useAuth()
-  const navigate = useNavigate()
-
-  async function handleSignOut() {
-    await signOut()
-    navigate('/login')
-  }
-
   return (
     <aside className={styles.sidebar}>
       <div className={styles.wordmark}>TERP</div>
@@ -49,10 +40,15 @@ export function Sidebar() {
       </nav>
 
       <div className={styles.bottom}>
-        <button className={styles.signOut} onClick={handleSignOut}>
-          <LogOut size={14} strokeWidth={1.5} aria-hidden="true" />
-          <span>Sign out</span>
-        </button>
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            [styles.navItem, isActive ? styles.active : ''].join(' ')
+          }
+        >
+          <User size={15} strokeWidth={1.5} aria-hidden="true" />
+          <span>Profile</span>
+        </NavLink>
       </div>
     </aside>
   )

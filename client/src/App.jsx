@@ -14,6 +14,7 @@ import { ProductDetailPage } from '@/pages/products/ProductDetailPage'
 import { AnalyticsPage } from '@/pages/analytics/AnalyticsPage'
 import { RecommendPage } from '@/pages/recommend/RecommendPage'
 import { DabTimerPage } from '@/pages/dab-timer/DabTimerPage'
+import { ProfilePage } from '@/pages/profile/ProfilePage'
 
 export default function App() {
   return (
@@ -53,6 +54,9 @@ export default function App() {
 
             {/* Dab Timer */}
             <Route path="/dab-timer"           element={<DabTimerPage />} />
+
+            {/* Profile */}
+            <Route path="/profile"             element={<ProfilePage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
