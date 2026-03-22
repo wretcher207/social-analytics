@@ -1,0 +1,160 @@
+/* ── Widget shell ─────────────────────────────────────────────────────────── */
+.widget {
+  border: 1px solid color-mix(in srgb, var(--color-warning, #c8913a) 40%, transparent);
+  background: color-mix(in srgb, var(--color-warning, #c8913a) 8%, var(--color-surface));
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-warning, #c8913a) 25%, transparent);
+}
+
+.iconWrap {
+  color: var(--color-warning, #c8913a);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  flex: 1;
+  letter-spacing: 0.01em;
+}
+
+/* Threshold control */
+.thrBtn {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s;
+}
+.thrBtn:hover { color: var(--color-text-primary); border-color: var(--color-text-muted); }
+
+.thrEdit {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.thrLabel {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
+.thrInput {
+  width: 48px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  padding: 2px 4px;
+  background: var(--color-surface-el);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text-primary);
+  outline: none;
+}
+.thrInput:focus { border-color: var(--color-warning, #c8913a); }
+
+/* Dismiss */
+.dismiss {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+.dismiss:hover { color: var(--color-text-primary); }
+
+/* ── Item list ────────────────────────────────────────────────────────────── */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: none;
+  border: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+}
+.item:last-child { border-bottom: none; }
+.item:hover { background: color-mix(in srgb, var(--color-warning, #c8913a) 6%, transparent); }
+
+.itemLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.itemName {
+  font-size: 0.8125rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemBrand {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
+.itemRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+/* ── Inventory pill ───────────────────────────────────────────────────────── */
+.pill {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+.pillLow {
+  color: var(--color-warning, #c8913a);
+  background: color-mix(in srgb, var(--color-warning, #c8913a) 15%, transparent);
+}
+
+.pillEmpty {
+  color: var(--color-error, #d26060);
+  background: color-mix(in srgb, var(--color-error, #d26060) 15%, transparent);
+}
+
+.chevron {
+  color: var(--color-text-muted);
+}

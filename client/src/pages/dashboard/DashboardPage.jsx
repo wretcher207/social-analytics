@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 import { PenLine, Timer, Camera, BarChart2, ChevronRight, Star } from 'lucide-react'
+import { LowStockWidget } from '@/components/dashboard/LowStockWidget'
 import { getOverview } from '@/lib/analytics'
 import { listEntries } from '@/lib/journal'
 import { listProducts } from '@/lib/products'
@@ -107,6 +108,9 @@ export function DashboardPage() {
           <p className={styles.sub}>Welcome back, {displayName}</p>
         </div>
       </header>
+
+      {/* ── Low stock alerts ─────────────────────────────────────────── */}
+      <LowStockWidget />
 
       {/* ── Stats ───────────────────────────────────────────────────── */}
       <div className={styles.statsRow}>
