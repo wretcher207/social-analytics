@@ -1,0 +1,115 @@
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+.card:hover {
+  border-color: var(--color-violet);
+  transform: scale(1.005);
+}
+.card:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.archived {
+  opacity: 0.5;
+}
+
+/* Top row */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.categoryBadge {
+  font-size: 0.6875rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.subcat {
+  color: var(--color-text-muted);
+}
+
+.archivedBadge {
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+}
+
+/* Main */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.name {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  letter-spacing: 0.01em;
+}
+
+.brand {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.strain {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+.cultivar {
+  text-transform: capitalize;
+}
+
+/* Inventory */
+.inventoryRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.inventoryTrack {
+  flex: 1;
+  height: 2px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.inventoryFill {
+  height: 100%;
+  background: var(--color-success);
+  border-radius: 2px;
+  transition: width 400ms ease;
+}
+
+.inventoryLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.dispensary {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}

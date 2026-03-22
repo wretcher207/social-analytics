@@ -8,17 +8,20 @@ import { DashboardPage } from '@/pages/dashboard/DashboardPage'
 import { JournalPage } from '@/pages/journal/JournalPage'
 import { NewEntryPage } from '@/pages/journal/NewEntryPage'
 import { EntryDetailPage } from '@/pages/journal/EntryDetailPage'
+import { ProductsPage } from '@/pages/products/ProductsPage'
+import { ProductFormPage } from '@/pages/products/ProductFormPage'
+import { ProductDetailPage } from '@/pages/products/ProductDetailPage'
 
 export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* Public routes */}
+          {/* Public */}
           <Route path="/login"    element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
-          {/* Protected routes */}
+          {/* Protected */}
           <Route
             element={
               <AuthGuard>
@@ -26,17 +29,25 @@ export default function App() {
               </AuthGuard>
             }
           >
-            <Route path="/dashboard"       element={<DashboardPage />} />
-            <Route path="/journal"         element={<JournalPage />} />
-            <Route path="/journal/new"     element={<NewEntryPage />} />
-            <Route path="/journal/:id"     element={<EntryDetailPage />} />
-            <Route path="/products"        element={<Placeholder label="Products" />} />
-            <Route path="/analytics"       element={<Placeholder label="Analytics" />} />
-            <Route path="/recommend"       element={<Placeholder label="For You" />} />
-            <Route path="/dab-timer"       element={<Placeholder label="Dab Timer" />} />
+            <Route path="/dashboard"           element={<DashboardPage />} />
+
+            {/* Journal */}
+            <Route path="/journal"             element={<JournalPage />} />
+            <Route path="/journal/new"         element={<NewEntryPage />} />
+            <Route path="/journal/:id"         element={<EntryDetailPage />} />
+
+            {/* Products */}
+            <Route path="/products"            element={<ProductsPage />} />
+            <Route path="/products/new"        element={<ProductFormPage />} />
+            <Route path="/products/:id"        element={<ProductDetailPage />} />
+            <Route path="/products/:id/edit"   element={<ProductFormPage />} />
+
+            {/* Future phases */}
+            <Route path="/analytics"           element={<Placeholder label="Analytics" />} />
+            <Route path="/recommend"           element={<Placeholder label="For You" />} />
+            <Route path="/dab-timer"           element={<Placeholder label="Dab Timer" />} />
           </Route>
 
-          {/* Fallback */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </AuthProvider>
