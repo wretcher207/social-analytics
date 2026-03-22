@@ -28,6 +28,7 @@ import { TimelinePage } from '@/pages/timeline/TimelinePage'
 import { ComparePage } from '@/pages/compare/ComparePage'
 import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
 import { ToleranceBreakPage } from '@/pages/tolerance-break/ToleranceBreakPage'
+import { DoseCalcPage } from '@/pages/dose-calc/DoseCalcPage'
 
 export default function App() {
   return (
@@ -103,6 +104,9 @@ export default function App() {
 
             {/* Tolerance Break */}
             <Route path="/tolerance-break"     element={<ToleranceBreakPage />} />
+
+            {/* Dose Calculator */}
+            <Route path="/dose-calc"           element={<DoseCalcPage />} />
 
             {/* Profile */}
             <Route path="/profile"             element={<ProfilePage />} />

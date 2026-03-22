@@ -1,0 +1,267 @@
+/* ── Page ─────────────────────────────────────────────────────────────────── */
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.icon {
+  color: var(--color-gold, #c8a96e);
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.sub {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  background: var(--color-surface-el);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+/* ── Fields ───────────────────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.input {
+  flex: 1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-size: 0.9375rem;
+  font-family: var(--font-mono);
+  padding: var(--space-2) var(--space-3);
+  outline: none;
+  transition: border-color 0.15s;
+  min-width: 0;
+}
+.input:focus { border-color: var(--color-gold, #c8a96e); }
+
+.unit {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  min-width: 20px;
+}
+
+.slider {
+  width: 100%;
+  accent-color: var(--color-gold, #c8a96e);
+  margin-top: 2px;
+}
+
+/* ── Method grid ──────────────────────────────────────────────────────────── */
+.methodGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.methodBtn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.methodBtn:hover { color: var(--color-text-primary); border-color: var(--color-text-muted); }
+.methodActive {
+  background: color-mix(in srgb, var(--color-gold, #c8a96e) 20%, transparent);
+  border-color: var(--color-gold, #c8a96e);
+  color: var(--color-gold, #c8a96e);
+}
+
+/* ── Result panel ─────────────────────────────────────────────────────────── */
+.resultPanel {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-5);
+}
+
+.resultGrid {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.resultCell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.resultDiv {
+  width: 1px;
+  background: var(--color-border);
+}
+
+.resultBig {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.resultLabel {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ── Dose tiers ───────────────────────────────────────────────────────────── */
+.tiers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tiersTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.tiersSub {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.tierList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Individual tier ──────────────────────────────────────────────────────── */
+.tier {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-el);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.tierHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: 3px;
+}
+
+.tierLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  min-width: 80px;
+}
+
+.tierRange {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
+.tierYou {
+  font-size: 0.5625rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--color-gold, #c8a96e);
+  margin-left: auto;
+}
+
+.tierDesc {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin: 0 0 4px;
+}
+
+.tierAmount {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary, var(--color-text-muted));
+  margin: 0;
+}
+
+.tierAmountNote {
+  color: var(--color-text-muted);
+  font-family: inherit;
+}
+
+/* Active tier highlight */
+.tierActive {
+  border-color: var(--color-gold, #c8a96e) !important;
+  background: color-mix(in srgb, var(--color-gold, #c8a96e) 8%, var(--color-surface)) !important;
+}
+
+/* Colour accents on left border */
+.tier_green   { border-left: 3px solid #5ec882; }
+.tier_teal    { border-left: 3px solid #4ec1b0; }
+.tier_gold    { border-left: 3px solid #c8a96e; }
+.tier_orange  { border-left: 3px solid #d4884e; }
+.tier_red     { border-left: 3px solid #d26060; }
+
+/* ── Disclaimer ───────────────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}

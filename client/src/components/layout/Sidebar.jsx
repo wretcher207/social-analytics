@@ -17,6 +17,7 @@ import {
   User,
   Search,
   ShieldOff,
+  FlaskRound,
 } from 'lucide-react'
 import styles from './Sidebar.module.css'
 
@@ -36,6 +37,7 @@ const NAV = [
   { to: '/timeline',    label: 'Timeline',     Icon: Activity },
   { to: '/favorites',        label: 'Favorites',    Icon: Heart },
   { to: '/tolerance-break', label: 'T-Break',      Icon: ShieldOff },
+  { to: '/dose-calc',       label: 'Dose Calc',    Icon: FlaskRound },
 ]
 
 export function Sidebar() {
