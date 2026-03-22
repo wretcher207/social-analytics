@@ -10,6 +10,7 @@ import {
   Timer,
   ClipboardList,
   Target,
+  Trophy,
   User,
   Search,
 } from 'lucide-react'
@@ -25,7 +26,8 @@ const NAV = [
   { to: '/recommend',   label: 'For You',        Icon: Sparkles },
   { to: '/dab-timer',   label: 'Dab Timer',      Icon: Timer },
   { to: '/log',         label: 'Log',            Icon: ClipboardList },
-  { to: '/goals',       label: 'Goals',          Icon: Target },
+  { to: '/goals',        label: 'Goals',        Icon: Target },
+  { to: '/achievements', label: 'Achievements', Icon: Trophy },
 ]
 
 export function Sidebar() {

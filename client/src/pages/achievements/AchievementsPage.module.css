@@ -1,0 +1,235 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 900px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-1);
+}
+
+.sub {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+/* Filter toggle */
+.filterGroup {
+  display: flex;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.filterBtn {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  padding: var(--space-2) var(--space-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+.filterBtn + .filterBtn { border-left: 1px solid var(--color-border); }
+.filterBtn:hover { color: var(--color-text-secondary); background: var(--color-surface-el); }
+.filterActive {
+  color: var(--color-accent);
+  background: var(--color-accent-dim);
+}
+
+/* Streak display */
+.streaks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  background: var(--color-surface-el);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-8);
+  align-self: flex-start;
+}
+
+.streakBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.streakNum {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.streakLabel {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.streakDivider {
+  width: 1px;
+  height: 40px;
+  background: var(--color-border);
+}
+
+/* Loading */
+.loading {
+  padding: var(--space-16) 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* Achievement grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: var(--space-3);
+}
+
+/* ── Achievement card ─────────────────────────────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  position: relative;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Locked state */
+.locked {
+  opacity: 0.55;
+  filter: grayscale(0.5);
+}
+
+/* Tier glow / border tints */
+.tier_bronze {
+  border-color: rgba(205, 127, 50, 0.35);
+  box-shadow: 0 0 0 1px rgba(205, 127, 50, 0.08) inset;
+}
+.tier_silver {
+  border-color: rgba(192, 192, 192, 0.4);
+  box-shadow: 0 0 0 1px rgba(192, 192, 192, 0.08) inset;
+}
+.tier_gold {
+  border-color: rgba(200, 169, 110, 0.55);
+  box-shadow: 0 0 0 1px rgba(200, 169, 110, 0.12) inset;
+}
+
+.emoji {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.tierBadge {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 99px;
+  border: 1px solid;
+}
+
+.badge_bronze {
+  color: #cd7f32;
+  border-color: rgba(205, 127, 50, 0.4);
+  background: rgba(205, 127, 50, 0.06);
+}
+.badge_silver {
+  color: #b0b0b0;
+  border-color: rgba(192, 192, 192, 0.4);
+  background: rgba(192, 192, 192, 0.06);
+}
+.badge_gold {
+  color: var(--color-accent);
+  border-color: rgba(200, 169, 110, 0.45);
+  background: var(--color-accent-dim);
+}
+
+.cardName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-top: var(--space-1);
+}
+
+.cardDesc {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* Progress bar */
+.progress {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.progressBar {
+  flex: 1;
+  height: 3px;
+  background: var(--color-border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 99px;
+  transition: width 0.3s ease;
+}
+
+.progressLabel {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* Unlocked checkmark */
+.checkmark {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-4);
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+@media (max-width: 540px) {
+  .header  { flex-direction: column; }
+  .streaks { align-self: stretch; justify-content: center; }
+  .grid    { grid-template-columns: 1fr 1fr; }
+}

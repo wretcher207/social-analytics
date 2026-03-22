@@ -22,6 +22,7 @@ import { StrainDetailPage } from '@/pages/strains/StrainDetailPage'
 import { StrainFormPage } from '@/pages/strains/StrainFormPage'
 import { SearchPage } from '@/pages/search/SearchPage'
 import { TerpenesPage } from '@/pages/terpenes/TerpenesPage'
+import { AchievementsPage } from '@/pages/achievements/AchievementsPage'
 
 export default function App() {
   return (
@@ -76,6 +77,9 @@ export default function App() {
 
             {/* Terpenes */}
             <Route path="/terpenes"            element={<TerpenesPage />} />
+
+            {/* Achievements */}
+            <Route path="/achievements"        element={<AchievementsPage />} />
 
             {/* Search */}
             <Route path="/search"              element={<SearchPage />} />
