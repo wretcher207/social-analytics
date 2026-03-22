@@ -25,6 +25,7 @@ import { TerpenesPage } from '@/pages/terpenes/TerpenesPage'
 import { AchievementsPage } from '@/pages/achievements/AchievementsPage'
 import { CalendarPage } from '@/pages/calendar/CalendarPage'
 import { TimelinePage } from '@/pages/timeline/TimelinePage'
+import { ComparePage } from '@/pages/compare/ComparePage'
 
 export default function App() {
   return (
@@ -88,6 +89,9 @@ export default function App() {
 
             {/* Timeline */}
             <Route path="/timeline"            element={<TimelinePage />} />
+
+            {/* Compare */}
+            <Route path="/compare"             element={<ComparePage />} />
 
             {/* Search */}
             <Route path="/search"              element={<SearchPage />} />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Edit2, Archive, ArchiveX, Plus, BookOpen } from 'lucide-react'
+import { ArrowLeft, Edit2, Archive, ArchiveX, Plus, BookOpen, GitCompare } from 'lucide-react'
 import { getProduct, updateProduct } from '@/lib/products'
 import { listEntries } from '@/lib/journal'
 import { createLog } from '@/lib/consumption'
@@ -180,6 +180,9 @@ export function ProductDetailPage() {
           <ArrowLeft size={14} strokeWidth={1.5} /> Products
         </button>
         <div className={styles.topActions}>
+          <Button variant="ghost" size="sm" onClick={() => navigate(`/compare?a=${id}`)}>
+            <GitCompare size={12} strokeWidth={1.5} /> Compare
+          </Button>
           <Button variant="ghost" size="sm" onClick={() => navigate(`/products/${id}/edit`)}>
             <Edit2 size={12} strokeWidth={1.5} /> Edit
           </Button>
