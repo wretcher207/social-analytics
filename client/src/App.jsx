@@ -24,6 +24,7 @@ import { SearchPage } from '@/pages/search/SearchPage'
 import { TerpenesPage } from '@/pages/terpenes/TerpenesPage'
 import { AchievementsPage } from '@/pages/achievements/AchievementsPage'
 import { CalendarPage } from '@/pages/calendar/CalendarPage'
+import { TimelinePage } from '@/pages/timeline/TimelinePage'
 
 export default function App() {
   return (
@@ -84,6 +85,9 @@ export default function App() {
 
             {/* Calendar */}
             <Route path="/calendar"            element={<CalendarPage />} />
+
+            {/* Timeline */}
+            <Route path="/timeline"            element={<TimelinePage />} />
 
             {/* Search */}
             <Route path="/search"              element={<SearchPage />} />
