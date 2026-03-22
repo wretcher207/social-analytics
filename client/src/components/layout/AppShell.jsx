@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { Sidebar } from './Sidebar'
+import { QuickLogFAB } from '@/components/quicklog/QuickLogFAB'
 import styles from './AppShell.module.css'
 
 export function AppShell() {
@@ -9,6 +10,7 @@ export function AppShell() {
       <main className={styles.main}>
         <Outlet />
       </main>
+      <QuickLogFAB />
     </div>
   )
 }

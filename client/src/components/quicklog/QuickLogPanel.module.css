@@ -1,0 +1,147 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── Field wrapper ───────────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ── Select ──────────────────────────────────────────────────────────────── */
+.select {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--color-surface-el);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+.select:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+.select option {
+  background: var(--color-surface);
+}
+
+/* ── 2-col row ───────────────────────────────────────────────────────────── */
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+/* ── Textarea ────────────────────────────────────────────────────────────── */
+.textarea {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--color-surface-el);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  resize: vertical;
+  min-height: 72px;
+  transition: border-color var(--transition-fast);
+}
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+
+/* ── Stars ───────────────────────────────────────────────────────────────── */
+.stars {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.star {
+  background: none;
+  border: none;
+  font-size: 1.375rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-border);
+  padding: 0 2px;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+.star:hover, .starOn {
+  color: #c8a96e;
+}
+.star:active { transform: scale(0.85); }
+
+.clearRating {
+  background: none;
+  border: none;
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0 var(--space-2);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.clearRating:hover { color: var(--color-text-primary); }
+
+/* ── Error ───────────────────────────────────────────────────────────────── */
+.error {
+  font-size: 0.8125rem;
+  color: var(--color-error, #c97575);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-error, #c97575);
+  border-radius: var(--radius-sm);
+  background: rgba(201, 117, 117, 0.07);
+}
+
+/* ── Actions ─────────────────────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+/* ── Success state ───────────────────────────────────────────────────────── */
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-8) 0;
+  text-align: center;
+}
+
+.successIcon {
+  color: #6ec98a;
+}
+
+.successText {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+}
+
+.successActions {
+  display: flex;
+  gap: var(--space-3);
+}
