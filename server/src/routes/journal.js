@@ -20,11 +20,11 @@ const ALLOWED_WRITE_FIELDS = [
   'session_at',
 ]
 
-// GET /api/journal?page=&limit=&strain_id=&product_id=&from=&to=
+// GET /api/journal?page=&limit=&strain_id=&product_id=&from=&to=&q=
 journalRouter.get('/', asyncHandler(async (req, res) => {
   const db = createUserClient(req.accessToken)
   const { from: rowFrom, to: rowTo, page, limit } = paginate(req.query.page, req.query.limit)
-  const { strain_id, product_id, from: dateFrom, to: dateTo } = req.query
+  const { strain_id, product_id, from: dateFrom, to: dateTo, q } = req.query
 
   let query = db
     .from('journal_entries')
@@ -41,6 +41,7 @@ journalRouter.get('/', asyncHandler(async (req, res) => {
   if (product_id) query = query.eq('product_id', product_id)
   if (dateFrom)   query = query.gte('session_at', dateFrom)
   if (dateTo)     query = query.lte('session_at', dateTo)
+  if (q)          query = query.ilike('title', `%${q}%`)
 
   const { data, error, count } = await query
   if (error) throwDbError(error)

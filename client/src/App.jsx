@@ -20,6 +20,7 @@ import { ConsumptionPage } from '@/pages/consumption/ConsumptionPage'
 import { StrainsPage } from '@/pages/strains/StrainsPage'
 import { StrainDetailPage } from '@/pages/strains/StrainDetailPage'
 import { StrainFormPage } from '@/pages/strains/StrainFormPage'
+import { SearchPage } from '@/pages/search/SearchPage'
 
 export default function App() {
   return (
@@ -71,6 +72,9 @@ export default function App() {
 
             {/* Goals */}
             <Route path="/goals"               element={<GoalsPage />} />
+
+            {/* Search */}
+            <Route path="/search"              element={<SearchPage />} />
 
             {/* Profile */}
             <Route path="/profile"             element={<ProfilePage />} />

@@ -15,11 +15,11 @@ const ALLOWED_FIELDS = [
   'label_image_url', 'purchased_at', 'archived', 'strain_id',
 ]
 
-// GET /api/products?category=&archived=&page=&limit=
+// GET /api/products?category=&archived=&page=&limit=&q=
 productsRouter.get('/', asyncHandler(async (req, res) => {
   const db = createUserClient(req.accessToken)
   const { from, to, page, limit } = paginate(req.query.page, req.query.limit)
-  const { category, archived } = req.query
+  const { category, archived, q } = req.query
 
   let query = db
     .from('products')
@@ -30,6 +30,7 @@ productsRouter.get('/', asyncHandler(async (req, res) => {
   if (category) query = query.eq('category', category)
   if (archived !== undefined) query = query.eq('archived', archived === 'true')
   else query = query.eq('archived', false)  // default: hide archived
+  if (q) query = query.ilike('name', `%${q}%`)
 
   const { data, error, count } = await query
   if (error) throwDbError(error)

@@ -10,6 +10,7 @@ import {
   ClipboardList,
   Target,
   User,
+  Search,
 } from 'lucide-react'
 import styles from './Sidebar.module.css'
 
@@ -29,6 +30,16 @@ export function Sidebar() {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.wordmark}>TERP</div>
+
+      <NavLink
+        to="/search"
+        className={({ isActive }) =>
+          [styles.searchLink, isActive ? styles.active : ''].join(' ')
+        }
+      >
+        <Search size={13} strokeWidth={1.5} aria-hidden="true" />
+        <span>Search</span>
+      </NavLink>
 
       <nav className={styles.nav} aria-label="Primary navigation">
         {NAV.map(({ to, label, Icon }) => (
