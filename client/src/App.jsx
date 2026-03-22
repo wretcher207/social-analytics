@@ -29,6 +29,7 @@ import { ComparePage } from '@/pages/compare/ComparePage'
 import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
 import { ToleranceBreakPage } from '@/pages/tolerance-break/ToleranceBreakPage'
 import { DoseCalcPage } from '@/pages/dose-calc/DoseCalcPage'
+import { EffectsPage } from '@/pages/effects/EffectsPage'
 
 export default function App() {
   return (
@@ -107,6 +108,9 @@ export default function App() {
 
             {/* Dose Calculator */}
             <Route path="/dose-calc"           element={<DoseCalcPage />} />
+
+            {/* Effects & Mood */}
+            <Route path="/effects"             element={<EffectsPage />} />
 
             {/* Profile */}
             <Route path="/profile"             element={<ProfilePage />} />

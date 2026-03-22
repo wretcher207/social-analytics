@@ -18,6 +18,7 @@ import {
   Search,
   ShieldOff,
   FlaskRound,
+  Smile,
 } from 'lucide-react'
 import styles from './Sidebar.module.css'
 
@@ -38,6 +39,7 @@ const NAV = [
   { to: '/favorites',        label: 'Favorites',    Icon: Heart },
   { to: '/tolerance-break', label: 'T-Break',      Icon: ShieldOff },
   { to: '/dose-calc',       label: 'Dose Calc',    Icon: FlaskRound },
+  { to: '/effects',         label: 'Effects',      Icon: Smile },
 ]
 
 export function Sidebar() {
