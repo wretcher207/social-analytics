@@ -17,6 +17,9 @@ import { DabTimerPage } from '@/pages/dab-timer/DabTimerPage'
 import { ProfilePage } from '@/pages/profile/ProfilePage'
 import { GoalsPage } from '@/pages/goals/GoalsPage'
 import { ConsumptionPage } from '@/pages/consumption/ConsumptionPage'
+import { StrainsPage } from '@/pages/strains/StrainsPage'
+import { StrainDetailPage } from '@/pages/strains/StrainDetailPage'
+import { StrainFormPage } from '@/pages/strains/StrainFormPage'
 
 export default function App() {
   return (
@@ -41,6 +44,12 @@ export default function App() {
             <Route path="/journal"             element={<JournalPage />} />
             <Route path="/journal/new"         element={<NewEntryPage />} />
             <Route path="/journal/:id"         element={<EntryDetailPage />} />
+
+            {/* Strains */}
+            <Route path="/strains"             element={<StrainsPage />} />
+            <Route path="/strains/new"         element={<StrainFormPage />} />
+            <Route path="/strains/:id"         element={<StrainDetailPage />} />
+            <Route path="/strains/:id/edit"    element={<StrainFormPage />} />
 
             {/* Products */}
             <Route path="/products"            element={<ProductsPage />} />
