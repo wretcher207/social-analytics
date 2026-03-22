@@ -5,6 +5,9 @@ import { AppShell } from '@/components/layout/AppShell'
 import { LoginPage } from '@/pages/auth/LoginPage'
 import { RegisterPage } from '@/pages/auth/RegisterPage'
 import { DashboardPage } from '@/pages/dashboard/DashboardPage'
+import { JournalPage } from '@/pages/journal/JournalPage'
+import { NewEntryPage } from '@/pages/journal/NewEntryPage'
+import { EntryDetailPage } from '@/pages/journal/EntryDetailPage'
 
 export default function App() {
   return (
@@ -23,12 +26,14 @@ export default function App() {
               </AuthGuard>
             }
           >
-            <Route path="/dashboard"  element={<DashboardPage />} />
-            <Route path="/journal"    element={<Placeholder label="Journal" />} />
-            <Route path="/products"   element={<Placeholder label="Products" />} />
-            <Route path="/analytics"  element={<Placeholder label="Analytics" />} />
-            <Route path="/recommend"  element={<Placeholder label="For You" />} />
-            <Route path="/dab-timer"  element={<Placeholder label="Dab Timer" />} />
+            <Route path="/dashboard"       element={<DashboardPage />} />
+            <Route path="/journal"         element={<JournalPage />} />
+            <Route path="/journal/new"     element={<NewEntryPage />} />
+            <Route path="/journal/:id"     element={<EntryDetailPage />} />
+            <Route path="/products"        element={<Placeholder label="Products" />} />
+            <Route path="/analytics"       element={<Placeholder label="Analytics" />} />
+            <Route path="/recommend"       element={<Placeholder label="For You" />} />
+            <Route path="/dab-timer"       element={<Placeholder label="Dab Timer" />} />
           </Route>
 
           {/* Fallback */}

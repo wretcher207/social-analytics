@@ -9,6 +9,7 @@ import { strainsRouter }     from './routes/strains.js'
 import { productsRouter }    from './routes/products.js'
 import { journalRouter }     from './routes/journal.js'
 import { consumptionRouter } from './routes/consumption.js'
+import { aiRouter }          from './routes/ai.js'
 import { errorHandler }      from './middleware/errors.js'
 
 const app = express()
@@ -39,6 +40,7 @@ app.use('/api/strains',      strainsRouter)
 app.use('/api/products',     productsRouter)
 app.use('/api/journal',      journalRouter)
 app.use('/api/consumption',  consumptionRouter)
+app.use('/api/ai',           aiRouter)
 
 // 404 handler
 app.use((_req, res) => {
