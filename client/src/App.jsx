@@ -30,6 +30,7 @@ import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
 import { ToleranceBreakPage } from '@/pages/tolerance-break/ToleranceBreakPage'
 import { DoseCalcPage } from '@/pages/dose-calc/DoseCalcPage'
 import { EffectsPage } from '@/pages/effects/EffectsPage'
+import { NotesPage } from '@/pages/notes/NotesPage'
 
 export default function App() {
   return (
@@ -111,6 +112,9 @@ export default function App() {
 
             {/* Effects & Mood */}
             <Route path="/effects"             element={<EffectsPage />} />
+
+            {/* Quick Notes */}
+            <Route path="/notes"               element={<NotesPage />} />
 
             {/* Profile */}
             <Route path="/profile"             element={<ProfilePage />} />
