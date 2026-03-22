@@ -1,0 +1,136 @@
+/* ── Skeleton ─────────────────────────────────────────────────────────────── */
+.skeleton {
+  height: 120px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-el);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+
+/* ── Empty ────────────────────────────────────────────────────────────────── */
+.empty {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  padding: var(--space-3) 0;
+}
+
+/* ── Summary row ─────────────────────────────────────────────────────────── */
+.summaryRow {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface-el);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.divider {
+  width: 1px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+
+.summaryCell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 60px;
+}
+
+.summaryVal {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: var(--color-text-primary);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.summaryUnit {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.summaryLabel {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ── Chart ────────────────────────────────────────────────────────────────── */
+.chartWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.chartTitle {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 80px;
+}
+
+.bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.barTrack {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  background: var(--color-surface-el);
+  border-radius: 3px 3px 0 0;
+  overflow: hidden;
+}
+
+.barFill {
+  width: 100%;
+  background: var(--color-gold, #c8a96e);
+  opacity: 0.85;
+  border-radius: 3px 3px 0 0;
+  min-height: 2px;
+  transition: height 0.35s ease;
+}
+
+.barCount {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  color: var(--color-text-muted);
+  line-height: 1;
+}
+
+.barLabel {
+  font-size: 0.4375rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* ── Root ─────────────────────────────────────────────────────────────────── */
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}

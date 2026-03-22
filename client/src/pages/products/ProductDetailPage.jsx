@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button'
 import { Modal } from '@/components/ui/Modal'
 import { MacroBar } from '@/components/products/MacroBar'
 import { EntryCard } from '@/components/journal/EntryCard'
+import { ProductUsageStats } from '@/components/products/ProductUsageStats'
 import { CONSUMPTION_METHODS } from '@/lib/constants'
 import styles from './ProductDetailPage.module.css'
 
@@ -312,6 +313,12 @@ export function ProductDetailPage() {
           </dl>
         </section>
       )}
+
+      {/* Usage analytics */}
+      <section className={styles.section}>
+        <h3 className={styles.sectionTitle}>Usage analytics</h3>
+        <ProductUsageStats productId={id} />
+      </section>
 
       {/* Quick log + journal entries */}
       <section className={styles.section}>
