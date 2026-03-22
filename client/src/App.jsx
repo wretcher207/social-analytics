@@ -8,6 +8,7 @@ import { DashboardPage } from '@/pages/dashboard/DashboardPage'
 import { JournalPage } from '@/pages/journal/JournalPage'
 import { NewEntryPage } from '@/pages/journal/NewEntryPage'
 import { EntryDetailPage } from '@/pages/journal/EntryDetailPage'
+import { EditEntryPage } from '@/pages/journal/EditEntryPage'
 import { ProductsPage } from '@/pages/products/ProductsPage'
 import { ProductFormPage } from '@/pages/products/ProductFormPage'
 import { ProductDetailPage } from '@/pages/products/ProductDetailPage'
@@ -54,6 +55,7 @@ export default function App() {
             {/* Journal */}
             <Route path="/journal"             element={<JournalPage />} />
             <Route path="/journal/new"         element={<NewEntryPage />} />
+            <Route path="/journal/:id/edit"    element={<EditEntryPage />} />
             <Route path="/journal/:id"         element={<EntryDetailPage />} />
 
             {/* Strains */}

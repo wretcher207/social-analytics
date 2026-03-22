@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Sparkles, Trash2, RefreshCw } from 'lucide-react'
+import { ArrowLeft, Sparkles, Trash2, RefreshCw, Pencil } from 'lucide-react'
 import { getEntry, deleteEntry } from '@/lib/journal'
 import { processEntry } from '@/lib/ai'
 import { Button } from '@/components/ui/Button'
@@ -107,6 +107,10 @@ export function EntryDetailPage() {
           Journal
         </button>
         <div className={styles.topActions}>
+          <Button variant="ghost" size="sm" onClick={() => navigate(`/journal/${id}/edit`)}>
+            <Pencil size={12} strokeWidth={1.5} />
+            Edit
+          </Button>
           {entry.body && (
             <Button
               variant="ghost"
