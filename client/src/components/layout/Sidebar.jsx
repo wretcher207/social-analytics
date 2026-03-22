@@ -11,6 +11,7 @@ import {
   ClipboardList,
   Target,
   Trophy,
+  CalendarDays,
   User,
   Search,
 } from 'lucide-react'
@@ -28,6 +29,7 @@ const NAV = [
   { to: '/log',         label: 'Log',            Icon: ClipboardList },
   { to: '/goals',        label: 'Goals',        Icon: Target },
   { to: '/achievements', label: 'Achievements', Icon: Trophy },
+  { to: '/calendar',     label: 'Calendar',     Icon: CalendarDays },
 ]
 
 export function Sidebar() {

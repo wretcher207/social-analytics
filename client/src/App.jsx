@@ -23,6 +23,7 @@ import { StrainFormPage } from '@/pages/strains/StrainFormPage'
 import { SearchPage } from '@/pages/search/SearchPage'
 import { TerpenesPage } from '@/pages/terpenes/TerpenesPage'
 import { AchievementsPage } from '@/pages/achievements/AchievementsPage'
+import { CalendarPage } from '@/pages/calendar/CalendarPage'
 
 export default function App() {
   return (
@@ -80,6 +81,9 @@ export default function App() {
 
             {/* Achievements */}
             <Route path="/achievements"        element={<AchievementsPage />} />
+
+            {/* Calendar */}
+            <Route path="/calendar"            element={<CalendarPage />} />
 
             {/* Search */}
             <Route path="/search"              element={<SearchPage />} />
