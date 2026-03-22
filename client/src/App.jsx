@@ -11,6 +11,7 @@ import { EntryDetailPage } from '@/pages/journal/EntryDetailPage'
 import { ProductsPage } from '@/pages/products/ProductsPage'
 import { ProductFormPage } from '@/pages/products/ProductFormPage'
 import { ProductDetailPage } from '@/pages/products/ProductDetailPage'
+import { AnalyticsPage } from '@/pages/analytics/AnalyticsPage'
 
 export default function App() {
   return (
@@ -42,8 +43,10 @@ export default function App() {
             <Route path="/products/:id"        element={<ProductDetailPage />} />
             <Route path="/products/:id/edit"   element={<ProductFormPage />} />
 
+            {/* Analytics */}
+            <Route path="/analytics"           element={<AnalyticsPage />} />
+
             {/* Future phases */}
-            <Route path="/analytics"           element={<Placeholder label="Analytics" />} />
             <Route path="/recommend"           element={<Placeholder label="For You" />} />
             <Route path="/dab-timer"           element={<Placeholder label="Dab Timer" />} />
           </Route>

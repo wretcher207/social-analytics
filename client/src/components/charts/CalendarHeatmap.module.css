@@ -1,0 +1,53 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  overflow-x: auto;
+}
+
+.svg {
+  display: block;
+  overflow: visible;
+}
+
+/* Cell levels — 0 = empty, 4 = peak */
+.level0 { fill: var(--color-border); }
+.level1 { fill: rgba(200, 169, 110, 0.25); }
+.level2 { fill: rgba(200, 169, 110, 0.50); }
+.level3 { fill: rgba(200, 169, 110, 0.75); }
+.level4 { fill: var(--color-accent); }
+
+.monthLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  fill: var(--color-text-muted);
+}
+
+.dayLabel {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  fill: var(--color-text-muted);
+  text-anchor: middle;
+}
+
+/* Tooltip */
+.tooltipBg  { fill: var(--color-surface-el); stroke: var(--color-border); stroke-width: 1; }
+.tooltipText {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  fill: var(--color-text-secondary);
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 24px;
+}
+
+.legendLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--color-text-muted);
+}
