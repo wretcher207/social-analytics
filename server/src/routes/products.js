@@ -3,6 +3,7 @@ import { requireAuth } from '../middleware/auth.js'
 import { asyncHandler } from '../middleware/errors.js'
 import { createUserClient } from '../lib/supabase.js'
 import { paginate, parseUUID, throwDbError } from '../lib/db.js'
+import { anthropic, AI_MODEL } from '../lib/anthropic.js'
 
 export const productsRouter = Router()
 productsRouter.use(requireAuth)
@@ -108,4 +109,71 @@ productsRouter.delete('/:id', asyncHandler(async (req, res) => {
   const { error } = await db.from('products').delete().eq('id', id)
   if (error) throwDbError(error)
   res.status(204).end()
+}))
+
+// ── POST /api/products/ocr ────────────────────────────────────────────────────
+// Vision-based label / COA extraction.
+// Body: { image: base64string, media_type: "image/jpeg"|"image/png"|"image/webp" }
+// Returns structured JSON ready to pre-fill the product form.
+
+const OCR_PROMPT = `Analyze this cannabis product label or Certificate of Analysis (COA) image.
+Extract all visible product information and return ONLY a valid JSON object with exactly these keys (use null for any value that is not visible or is unclear):
+
+{
+  "name": string or null,
+  "brand": string or null,
+  "strain_name": string or null,
+  "cultivar_type": "indica" | "sativa" | "hybrid" | "cbd" | "unknown" | null,
+  "thc_pct": number or null,
+  "cbd_pct": number or null,
+  "terpenes": [{"name": string, "pct": number or null}],
+  "category": "flower" | "concentrate" | "edible" | "tincture" | "topical" | "vape" | "other" | null,
+  "subcategory": "live_resin" | "live_rosin" | "rosin" | "wax" | "shatter" | "badder" | "sugar" | "diamonds" | "sauce" | "hash" | "distillate" | "rso" | "other" | null,
+  "weight_g": number or null,
+  "batch_number": string or null,
+  "dispensary": string or null
+}
+
+Return ONLY the JSON object — no explanation, no markdown, no code fences.`
+
+productsRouter.post('/ocr', asyncHandler(async (req, res) => {
+  const { image, media_type } = req.body ?? {}
+
+  if (!image || typeof image !== 'string') {
+    return res.status(400).json({ message: 'image (base64 string) is required.' })
+  }
+
+  const mt = media_type ?? 'image/jpeg'
+  if (!['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(mt)) {
+    return res.status(400).json({ message: `Unsupported image type: ${mt}` })
+  }
+
+  const response = await anthropic.messages.create({
+    model: AI_MODEL,
+    max_tokens: 1024,
+    messages: [{
+      role: 'user',
+      content: [
+        { type: 'image', source: { type: 'base64', media_type: mt, data: image } },
+        { type: 'text',  text: OCR_PROMPT },
+      ],
+    }],
+  })
+
+  const raw = response.content[0]?.text ?? ''
+
+  let parsed
+  try {
+    const cleaned = raw
+      .replace(/^```(?:json)?\s*/i, '')
+      .replace(/\s*```\s*$/i, '')
+      .trim()
+    parsed = JSON.parse(cleaned)
+  } catch {
+    return res.status(422).json({
+      message: 'Could not parse label data. Try a clearer or higher-resolution image.',
+    })
+  }
+
+  res.json(parsed)
 }))

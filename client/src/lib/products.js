@@ -25,3 +25,25 @@ export function updateProduct(id, body) {
 export function deleteProduct(id) {
   return api.delete(`/products/${id}`)
 }
+
+/**
+ * Read a File, base64-encode it, and POST to the OCR endpoint.
+ * Returns structured extraction data ready to pre-fill the product form.
+ */
+export function scanLabel(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = async () => {
+      try {
+        const [header, base64] = reader.result.split(',')
+        const media_type = header.match(/:(.*?);/)?.[1] ?? 'image/jpeg'
+        const result = await api.post('/products/ocr', { image: base64, media_type })
+        resolve(result)
+      } catch (err) {
+        reject(err)
+      }
+    }
+    reader.onerror = () => reject(new Error('Failed to read image file.'))
+    reader.readAsDataURL(file)
+  })
+}

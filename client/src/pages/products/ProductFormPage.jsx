@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
-import { createProduct, getProduct, updateProduct } from '@/lib/products'
+import { ArrowLeft, Camera, CheckCircle, AlertTriangle } from 'lucide-react'
+import { createProduct, getProduct, updateProduct, scanLabel } from '@/lib/products'
 import { listStrains } from '@/lib/strains'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -11,6 +11,9 @@ import {
   CONCENTRATE_SUBCATEGORIES,
 } from '@/lib/constants'
 import styles from './ProductFormPage.module.css'
+
+const VALID_CATS = ['flower','concentrate','edible','tincture','topical','vape','other']
+const VALID_SUBS = ['live_resin','live_rosin','rosin','wax','shatter','badder','sugar','diamonds','sauce','hash','distillate','rso','other']
 
 export function ProductFormPage() {
   const navigate  = useNavigate()
@@ -37,6 +40,14 @@ export function ProductFormPage() {
   const [pricePaid, setPricePaid]   = useState('')
   const [batchNumber, setBatchNumber] = useState('')
   const [purchasedAt, setPurchasedAt] = useState('')
+
+  // Label scanner state
+  const fileInputRef                    = useRef(null)
+  const [scanPreview, setScanPreview]   = useState('')
+  const [scanLoading, setScanLoading]   = useState(false)
+  const [scanResult, setScanResult]     = useState(null)
+  const [scanFilled, setScanFilled]     = useState(0)
+  const [scanError, setScanError]       = useState('')
 
   // Load strains for picker
   useEffect(() => {
@@ -66,6 +77,64 @@ export function ProductFormPage() {
       .catch(err => setError(err.message))
       .finally(() => setLoading(false))
   }, [id, isEdit])
+
+  // ── Label scanner ──────────────────────────────────────────────────────────
+
+  function applyOcrResult(result) {
+    let count = 0
+    if (result.name?.trim())             { setName(result.name.trim());                    count++ }
+    if (result.brand?.trim())            { setBrand(result.brand.trim());                  count++ }
+    if (result.dispensary?.trim())       { setDispensary(result.dispensary.trim());        count++ }
+    if (VALID_CATS.includes(result.category)) {
+      setCategory(result.category); count++
+      if (result.category === 'concentrate' && VALID_SUBS.includes(result.subcategory)) {
+        setSubcategory(result.subcategory); count++
+      }
+    }
+    if (result.thc_pct != null)          { setThcPct(String(result.thc_pct));             count++ }
+    if (result.cbd_pct != null)          { setCbdPct(String(result.cbd_pct));             count++ }
+    if (result.terpenes?.length)         { setTerpenes(result.terpenes);                  count++ }
+    if (result.weight_g != null)         {
+      setWeightG(String(result.weight_g))
+      if (!isEdit && !remainingG) setRemainingG(String(result.weight_g))
+      count++
+    }
+    if (result.batch_number?.trim())     { setBatchNumber(result.batch_number.trim());    count++ }
+    return count
+  }
+
+  async function handleScan(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const previewUrl = URL.createObjectURL(file)
+    setScanPreview(previewUrl)
+    setScanLoading(true)
+    setScanResult(null)
+    setScanError('')
+    setScanFilled(0)
+
+    try {
+      const result = await scanLabel(file)
+      setScanResult(result)
+      setScanFilled(applyOcrResult(result))
+    } catch (err) {
+      setScanError(err.message)
+    } finally {
+      setScanLoading(false)
+    }
+  }
+
+  function clearScan() {
+    if (scanPreview) URL.revokeObjectURL(scanPreview)
+    setScanPreview('')
+    setScanResult(null)
+    setScanError('')
+    setScanFilled(0)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  // ── Form submit ────────────────────────────────────────────────────────────
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -127,6 +196,83 @@ export function ProductFormPage() {
       </header>
 
       <form className={styles.form} onSubmit={handleSubmit}>
+
+        {/* ── Label scanner ──────────────────────────────────────────────── */}
+        <fieldset className={styles.group}>
+          <legend className={styles.groupTitle}>
+            <span className={styles.groupTitleInner}>
+              <Camera size={10} strokeWidth={1.5} />
+              Scan label
+              <span className={styles.aiBadge}>AI</span>
+            </span>
+          </legend>
+
+          {/* Hidden file input */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/*"
+            className={styles.hiddenFile}
+            onChange={handleScan}
+            capture="environment"
+          />
+
+          {!scanPreview ? (
+            <button
+              type="button"
+              className={styles.scanTrigger}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Camera size={20} strokeWidth={1} className={styles.scanIcon} />
+              <span className={styles.scanTriggerText}>
+                Photograph a label or COA to auto-fill fields
+              </span>
+              <span className={styles.scanTriggerHint}>JPEG · PNG · WEBP</span>
+            </button>
+          ) : (
+            <div className={styles.scanRow}>
+              <img src={scanPreview} alt="Label preview" className={styles.previewImg} />
+
+              <div className={styles.scanStatus}>
+                {scanLoading && (
+                  <span className={styles.scanMsg}>
+                    <span className={styles.spinner} aria-hidden="true" />
+                    Extracting fields…
+                  </span>
+                )}
+                {!scanLoading && scanFilled > 0 && (
+                  <span className={[styles.scanMsg, styles.scanOk].join(' ')}>
+                    <CheckCircle size={13} strokeWidth={1.5} />
+                    {scanFilled} field{scanFilled !== 1 ? 's' : ''} filled from label
+                  </span>
+                )}
+                {!scanLoading && scanFilled === 0 && scanResult && (
+                  <span className={[styles.scanMsg, styles.scanWarn].join(' ')}>
+                    No data detected — try a clearer image
+                  </span>
+                )}
+                {!scanLoading && scanError && (
+                  <span className={[styles.scanMsg, styles.scanErr].join(' ')}>
+                    <AlertTriangle size={12} strokeWidth={1.5} />
+                    {scanError}
+                  </span>
+                )}
+                {scanResult?.strain_name && (
+                  <span className={styles.strainNote}>
+                    Strain detected: <em>{scanResult.strain_name}</em> — select it in the Strain section below.
+                  </span>
+                )}
+                <button type="button" className={styles.rescanBtn} onClick={() => fileInputRef.current?.click()}>
+                  Re-scan
+                </button>
+              </div>
+
+              <button type="button" className={styles.clearBtn} onClick={clearScan} aria-label="Clear scan">
+                ✕
+              </button>
+            </div>
+          )}
+        </fieldset>
 
         {/* ── Core identity ─────────────────────────────────────────────── */}
         <fieldset className={styles.group}>

@@ -153,6 +153,153 @@
   .row2, .row3 { grid-template-columns: 1fr; }
 }
 
+/* ── Label scanner ───────────────────────────────────────────────────────── */
+
+.groupTitleInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.aiBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--color-accent-dim);
+  border: 1px solid rgba(200, 169, 110, 0.25);
+  color: var(--color-accent);
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+}
+
+.hiddenFile {
+  display: none;
+}
+
+.scanTrigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 96px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+  padding: var(--space-5);
+}
+.scanTrigger:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text-secondary);
+}
+
+.scanIcon {
+  opacity: 0.4;
+  transition: opacity var(--transition-fast);
+}
+.scanTrigger:hover .scanIcon { opacity: 0.7; }
+
+.scanTriggerText { font-size: 0.875rem; }
+
+.scanTriggerHint {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* Preview row */
+.scanRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.previewImg {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.scanStatus {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.scanMsg {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.scanOk   { color: #7dc98c; }
+.scanWarn { color: #c8a96e; }
+.scanErr  { color: #c87070; }
+
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.strainNote {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+.strainNote em {
+  font-style: normal;
+  color: var(--color-accent);
+}
+
+.rescanBtn {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: 0.6875rem;
+  font-family: var(--font-body);
+  padding: 3px 8px;
+  cursor: pointer;
+  width: fit-content;
+  margin-top: var(--space-1);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+.rescanBtn:hover { border-color: var(--color-text-muted); color: var(--color-text-secondary); }
+
+.clearBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  flex-shrink: 0;
+  transition: color var(--transition-fast);
+}
+.clearBtn:hover { color: var(--color-text-primary); }
+
 /* Actions */
 .actions {
   display: flex;
