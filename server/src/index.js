@@ -3,9 +3,13 @@ import express from 'express'
 import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 
-import { healthRouter } from './routes/health.js'
-import { authRouter } from './routes/auth.js'
-import { errorHandler } from './middleware/errors.js'
+import { healthRouter }     from './routes/health.js'
+import { authRouter }        from './routes/auth.js'
+import { strainsRouter }     from './routes/strains.js'
+import { productsRouter }    from './routes/products.js'
+import { journalRouter }     from './routes/journal.js'
+import { consumptionRouter } from './routes/consumption.js'
+import { errorHandler }      from './middleware/errors.js'
 
 const app = express()
 const PORT = process.env.PORT ?? 4000
@@ -29,8 +33,12 @@ app.use(rateLimit({
 
 // ── Routes ────────────────────────────────────────────────────────────────────
 
-app.use('/health',    healthRouter)
-app.use('/api/auth',  authRouter)
+app.use('/health',           healthRouter)
+app.use('/api/auth',         authRouter)
+app.use('/api/strains',      strainsRouter)
+app.use('/api/products',     productsRouter)
+app.use('/api/journal',      journalRouter)
+app.use('/api/consumption',  consumptionRouter)
 
 // 404 handler
 app.use((_req, res) => {
