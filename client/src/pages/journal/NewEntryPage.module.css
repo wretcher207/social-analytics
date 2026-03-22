@@ -358,6 +358,61 @@
   padding-top: var(--space-2);
 }
 
+/* User tag chip input ─────────────────────────────────────────────────────── */
+.tagChipInput {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: text;
+  transition: border-color 0.15s;
+}
+.tagChipInput:focus-within { border-color: var(--color-gold, #c8a96e); }
+
+.tagChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+  color: var(--color-gold, #c8a96e);
+  background: color-mix(in srgb, var(--color-gold, #c8a96e) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-gold, #c8a96e) 30%, transparent);
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.tagChipRemove {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.7;
+}
+.tagChipRemove:hover { opacity: 1; }
+
+.tagTextInput {
+  flex: 1;
+  min-width: 120px;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  padding: 0;
+}
+.tagTextInput::placeholder { color: var(--color-text-muted); font-style: italic; }
+
 /* Misc */
 .hint {
   font-size: 0.8125rem;

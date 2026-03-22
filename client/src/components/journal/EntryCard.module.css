@@ -110,3 +110,21 @@
   color: var(--color-text-muted);
   align-self: center;
 }
+
+.userTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.userTag {
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gold, #c8a96e);
+  background: color-mix(in srgb, var(--color-gold, #c8a96e) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-gold, #c8a96e) 30%, transparent);
+  border-radius: 3px;
+  padding: 1px 5px;
+}

@@ -58,6 +58,8 @@ export function NewEntryPage() {
   const [painAfter, setPainAfter]     = useState(null)
   const [focusAfter, setFocusAfter]   = useState(null)
   const [overallRating, setOverallRating] = useState(null)
+  const [userTags, setUserTags]       = useState([])
+  const [tagInput, setTagInput]       = useState('')
   const [saving, setSaving]           = useState(false)
   const [saveError, setSaveError]     = useState('')
 
@@ -127,6 +129,7 @@ export function NewEntryPage() {
         pain_after:     painAfter,
         focus_after:    focusAfter,
         overall_rating: overallRating,
+        tags:           userTags,
         // Persist AI results
         ai_summary:         aiResult?.summary            ?? undefined,
         ai_terpene_profile: aiResult ? {
@@ -157,6 +160,20 @@ export function NewEntryPage() {
   }
 
   // ── Effect tag helpers ──────────────────────────────────────────────────────
+  function addUserTag(raw) {
+    const t = raw.trim().toLowerCase().replace(/\s+/g, '-').slice(0, 24)
+    if (!t || userTags.includes(t) || userTags.length >= 10) return
+    setUserTags(prev => [...prev, t])
+    setTagInput('')
+  }
+  function removeUserTag(t) { setUserTags(prev => prev.filter(x => x !== t)) }
+  function handleTagKeyDown(e) {
+    if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addUserTag(tagInput) }
+    if (e.key === 'Backspace' && !tagInput && userTags.length) {
+      setUserTags(prev => prev.slice(0, -1))
+    }
+  }
+
   function toggleEffect(tag) {
     setEffects(prev =>
       prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
@@ -391,6 +408,31 @@ export function NewEntryPage() {
                   {tag}
                 </button>
               ))}
+            </div>
+          </div>
+
+          {/* User-defined tags */}
+          <div className={styles.field}>
+            <label className={styles.fieldLabel}>
+              Your tags <span className={styles.fieldOr}>(optional — Enter or comma to add)</span>
+            </label>
+            <div className={styles.tagChipInput}>
+              {userTags.map(t => (
+                <span key={t} className={styles.tagChip}>
+                  {t}
+                  <button type="button" className={styles.tagChipRemove} onClick={() => removeUserTag(t)}>×</button>
+                </span>
+              ))}
+              {userTags.length < 10 && (
+                <input
+                  className={styles.tagTextInput}
+                  value={tagInput}
+                  onChange={e => setTagInput(e.target.value)}
+                  onKeyDown={handleTagKeyDown}
+                  onBlur={() => tagInput && addUserTag(tagInput)}
+                  placeholder={userTags.length === 0 ? 'e.g. sleep, creative, evening…' : ''}
+                />
+              )}
             </div>
           </div>
 

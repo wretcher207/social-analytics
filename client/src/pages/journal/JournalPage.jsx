@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Plus, SlidersHorizontal } from 'lucide-react'
-import { listEntries } from '@/lib/journal'
+import { Plus, SlidersHorizontal, Tag } from 'lucide-react'
+import { listEntries, getJournalTags } from '@/lib/journal'
 import { Button } from '@/components/ui/Button'
 import { EntryCard } from '@/components/journal/EntryCard'
 import styles from './JournalPage.module.css'
@@ -22,6 +22,15 @@ export function JournalPage() {
   const [loading, setLoading]     = useState(true)
   const [error, setError]         = useState('')
   const [method, setMethod]       = useState('')
+  const [tag, setTag]             = useState('')
+  const [availTags, setAvailTags] = useState([])
+
+  // Load available tags once
+  useEffect(() => {
+    getJournalTags()
+      .then(r => setAvailTags(r.tags ?? []))
+      .catch(() => {})
+  }, [])
 
   const LIMIT = 20
 
@@ -31,6 +40,7 @@ export function JournalPage() {
     try {
       const params = { page, limit: LIMIT }
       if (method) params.method = method
+      if (tag)    params.tag    = tag
       const res = await listEntries(params)
       setEntries(res.data ?? [])
       setTotal(res.meta?.total ?? 0)
@@ -39,7 +49,7 @@ export function JournalPage() {
     } finally {
       setLoading(false)
     }
-  }, [page, method])
+  }, [page, method, tag])
 
   useEffect(() => { load() }, [load])
 
@@ -75,6 +85,33 @@ export function JournalPage() {
           ))}
         </div>
       </div>
+
+      {availTags.length > 0 && (
+        <div className={styles.toolbar}>
+          <Tag size={12} strokeWidth={1.5} style={{ color: 'var(--color-text-muted)', flexShrink: 0 }} />
+          <div className={styles.filters}>
+            <button
+              type="button"
+              className={[styles.filter, !tag ? styles.filterActive : ''].join(' ')}
+              onClick={() => { setTag(''); setPage(1) }}
+            >
+              All tags
+            </button>
+            {availTags.map(({ tag: t, count }) => (
+              <button
+                key={t}
+                type="button"
+                className={[styles.filter, styles.filterTag, tag === t ? styles.filterTagActive : ''].join(' ')}
+                onClick={() => { setTag(tag === t ? '' : t); setPage(1) }}
+                title={`${count} entr${count !== 1 ? 'ies' : 'y'}`}
+              >
+                {t}
+                <span className={styles.filterCount}>{count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {error && <p className={styles.error}>{error}</p>}
 

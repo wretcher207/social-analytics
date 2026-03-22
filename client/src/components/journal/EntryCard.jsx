@@ -72,6 +72,14 @@ export function EntryCard({ entry }) {
           )}
         </div>
       )}
+
+      {entry.tags?.length > 0 && (
+        <div className={styles.userTags}>
+          {entry.tags.map(t => (
+            <span key={t} className={styles.userTag}>{t}</span>
+          ))}
+        </div>
+      )}
     </article>
   )
 }

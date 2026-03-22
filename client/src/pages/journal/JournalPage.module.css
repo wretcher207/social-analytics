@@ -61,6 +61,31 @@
   background: var(--color-accent-dim);
 }
 
+/* Tag-specific filter chips */
+.filterTag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+}
+
+.filterTagActive {
+  color: var(--color-gold, #c8a96e);
+  border-color: color-mix(in srgb, var(--color-gold, #c8a96e) 40%, transparent);
+  background: color-mix(in srgb, var(--color-gold, #c8a96e) 10%, transparent);
+}
+
+.filterCount {
+  font-size: 0.5625rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  background: var(--color-surface-el);
+  border-radius: 999px;
+  padding: 0 4px;
+  line-height: 1.5;
+}
+
 .list {
   display: flex;
   flex-direction: column;

@@ -20,11 +20,11 @@ const ALLOWED_WRITE_FIELDS = [
   'session_at',
 ]
 
-// GET /api/journal?page=&limit=&strain_id=&product_id=&from=&to=&q=
+// GET /api/journal?page=&limit=&strain_id=&product_id=&method=&tag=&from=&to=&q=
 journalRouter.get('/', asyncHandler(async (req, res) => {
   const db = createUserClient(req.accessToken)
   const { from: rowFrom, to: rowTo, page, limit } = paginate(req.query.page, req.query.limit)
-  const { strain_id, product_id, from: dateFrom, to: dateTo, q } = req.query
+  const { strain_id, product_id, method, tag, from: dateFrom, to: dateTo, q } = req.query
 
   let query = db
     .from('journal_entries')
@@ -39,6 +39,8 @@ journalRouter.get('/', asyncHandler(async (req, res) => {
 
   if (strain_id)  query = query.eq('strain_id', strain_id)
   if (product_id) query = query.eq('product_id', product_id)
+  if (method)     query = query.eq('consumption_method', method)
+  if (tag)        query = query.contains('tags', [tag])
   if (dateFrom)   query = query.gte('session_at', dateFrom)
   if (dateTo)     query = query.lte('session_at', dateTo)
   if (q)          query = query.ilike('title', `%${q}%`)
@@ -118,6 +120,29 @@ journalRouter.delete('/:id', asyncHandler(async (req, res) => {
   const { error } = await db.from('journal_entries').delete().eq('id', id)
   if (error) throwDbError(error)
   res.status(204).end()
+}))
+
+// GET /api/journal/tags  — all distinct user-defined tags for the current user
+journalRouter.get('/tags', asyncHandler(async (req, res) => {
+  const db = createUserClient(req.accessToken)
+
+  const { data, error } = await db
+    .from('journal_entries')
+    .select('tags')
+    .not('tags', 'is', null)
+
+  if (error) throwDbError(error)
+
+  const counts = {}
+  ;(data ?? []).forEach(row =>
+    (row.tags ?? []).forEach(t => { counts[t] = (counts[t] ?? 0) + 1 })
+  )
+
+  const tags = Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([tag, count]) => ({ tag, count }))
+
+  res.json({ tags })
 }))
 
 // GET /api/journal/stats/summary

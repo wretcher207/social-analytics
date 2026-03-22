@@ -30,3 +30,8 @@ export function deleteEntry(id) {
 export function getJournalStats() {
   return api.get('/journal/stats/summary')
 }
+
+/** All distinct user-defined tags with counts */
+export function getJournalTags() {
+  return api.get('/journal/tags')
+}
