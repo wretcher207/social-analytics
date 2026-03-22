@@ -27,6 +27,7 @@ import { CalendarPage } from '@/pages/calendar/CalendarPage'
 import { TimelinePage } from '@/pages/timeline/TimelinePage'
 import { ComparePage } from '@/pages/compare/ComparePage'
 import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
+import { ToleranceBreakPage } from '@/pages/tolerance-break/ToleranceBreakPage'
 
 export default function App() {
   return (
@@ -99,6 +100,9 @@ export default function App() {
 
             {/* Search */}
             <Route path="/search"              element={<SearchPage />} />
+
+            {/* Tolerance Break */}
+            <Route path="/tolerance-break"     element={<ToleranceBreakPage />} />
 
             {/* Profile */}
             <Route path="/profile"             element={<ProfilePage />} />

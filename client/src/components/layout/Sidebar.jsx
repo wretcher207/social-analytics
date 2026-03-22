@@ -16,6 +16,7 @@ import {
   Heart,
   User,
   Search,
+  ShieldOff,
 } from 'lucide-react'
 import styles from './Sidebar.module.css'
 
@@ -33,7 +34,8 @@ const NAV = [
   { to: '/achievements', label: 'Achievements', Icon: Trophy },
   { to: '/calendar',     label: 'Calendar',     Icon: CalendarDays },
   { to: '/timeline',    label: 'Timeline',     Icon: Activity },
-  { to: '/favorites',   label: 'Favorites',    Icon: Heart },
+  { to: '/favorites',        label: 'Favorites',    Icon: Heart },
+  { to: '/tolerance-break', label: 'T-Break',      Icon: ShieldOff },
 ]
 
 export function Sidebar() {
