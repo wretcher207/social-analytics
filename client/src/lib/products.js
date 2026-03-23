@@ -26,6 +26,11 @@ export function deleteProduct(id) {
   return api.delete(`/products/${id}`)
 }
 
+/** Spending aggregation across all priced products */
+export function getSpendSummary() {
+  return api.get('/products/spend-summary')
+}
+
 /**
  * Read a File, base64-encode it, and POST to the OCR endpoint.
  * Returns structured extraction data ready to pre-fill the product form.

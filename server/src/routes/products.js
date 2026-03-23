@@ -38,6 +38,78 @@ productsRouter.get('/', asyncHandler(async (req, res) => {
   res.json({ data, meta: { total: count, page, limit } })
 }))
 
+// GET /api/products/spend-summary
+productsRouter.get('/spend-summary', asyncHandler(async (req, res) => {
+  const db = createUserClient(req.accessToken)
+
+  const { data, error } = await db
+    .from('products')
+    .select('id, name, category, brand, price_paid, weight_g, purchased_at, archived')
+    .order('purchased_at', { ascending: false })
+
+  if (error) throwDbError(error)
+
+  const rows = data ?? []
+  const priced = rows.filter(r => r.price_paid != null && r.price_paid > 0)
+
+  // ── Totals ────────────────────────────────────────────────────────────────
+  const total_spent   = priced.reduce((s, r) => s + Number(r.price_paid), 0)
+  const product_count = priced.length
+  const total_weight  = priced.reduce((s, r) => s + (r.weight_g ? Number(r.weight_g) : 0), 0)
+  const avg_cost_per_g = total_weight > 0 ? total_spent / total_weight : null
+
+  // ── By category ───────────────────────────────────────────────────────────
+  const catMap = {}
+  priced.forEach(r => {
+    if (!catMap[r.category]) catMap[r.category] = { total: 0, count: 0, weight: 0 }
+    catMap[r.category].total  += Number(r.price_paid)
+    catMap[r.category].count  += 1
+    catMap[r.category].weight += r.weight_g ? Number(r.weight_g) : 0
+  })
+  const by_category = Object.entries(catMap)
+    .map(([category, v]) => ({
+      category,
+      total:          Math.round(v.total * 100) / 100,
+      count:          v.count,
+      avg_cost_per_g: v.weight > 0 ? Math.round((v.total / v.weight) * 100) / 100 : null,
+    }))
+    .sort((a, b) => b.total - a.total)
+
+  // ── By month (last 24 months) ─────────────────────────────────────────────
+  const monthMap = {}
+  priced.forEach(r => {
+    if (!r.purchased_at) return
+    const m = r.purchased_at.slice(0, 7)   // "YYYY-MM"
+    monthMap[m] = (monthMap[m] ?? 0) + Number(r.price_paid)
+  })
+  const by_month = Object.entries(monthMap)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .slice(-24)
+    .map(([month, total]) => ({ month, total: Math.round(total * 100) / 100 }))
+
+  // ── Recent purchases (10 most recent with price) ──────────────────────────
+  const recent = priced.slice(0, 10).map(r => ({
+    id:           r.id,
+    name:         r.name,
+    brand:        r.brand,
+    category:     r.category,
+    price_paid:   Number(r.price_paid),
+    weight_g:     r.weight_g ? Number(r.weight_g) : null,
+    cost_per_g:   r.weight_g ? Math.round((Number(r.price_paid) / Number(r.weight_g)) * 100) / 100 : null,
+    purchased_at: r.purchased_at,
+    archived:     r.archived,
+  }))
+
+  res.json({
+    total_spent:   Math.round(total_spent * 100) / 100,
+    product_count,
+    avg_cost_per_g: avg_cost_per_g ? Math.round(avg_cost_per_g * 100) / 100 : null,
+    by_category,
+    by_month,
+    recent,
+  })
+}))
+
 // GET /api/products/:id
 productsRouter.get('/:id', asyncHandler(async (req, res) => {
   const id = parseUUID(req.params.id)

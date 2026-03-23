@@ -32,6 +32,7 @@ import { ToleranceBreakPage } from '@/pages/tolerance-break/ToleranceBreakPage'
 import { DoseCalcPage } from '@/pages/dose-calc/DoseCalcPage'
 import { EffectsPage } from '@/pages/effects/EffectsPage'
 import { NotesPage } from '@/pages/notes/NotesPage'
+import { SpendingPage } from '@/pages/spending/SpendingPage'
 
 export default function App() {
   return (
@@ -117,6 +118,9 @@ export default function App() {
 
             {/* Quick Notes */}
             <Route path="/notes"               element={<NotesPage />} />
+
+            {/* Spending */}
+            <Route path="/spending"            element={<SpendingPage />} />
 
             {/* Profile */}
             <Route path="/profile"             element={<ProfilePage />} />

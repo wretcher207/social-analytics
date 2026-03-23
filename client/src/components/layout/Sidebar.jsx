@@ -20,6 +20,7 @@ import {
   FlaskRound,
   Smile,
   StickyNote,
+  Wallet,
 } from 'lucide-react'
 import styles from './Sidebar.module.css'
 
@@ -42,6 +43,7 @@ const NAV = [
   { to: '/dose-calc',       label: 'Dose Calc',    Icon: FlaskRound },
   { to: '/effects',         label: 'Effects',      Icon: Smile },
   { to: '/notes',           label: 'Notes',        Icon: StickyNote },
+  { to: '/spending',        label: 'Spending',     Icon: Wallet },
 ]
 
 export function Sidebar() {
