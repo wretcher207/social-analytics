@@ -1,0 +1,51 @@
+:root {
+  /* Colors */
+  --color-bg:           #0A0A0F;
+  --color-surface:      #12121A;
+  --color-surface-el:   #1A1A28;
+  --color-border:       #2A2A3A;
+
+  --color-accent:       #C8A96E;
+  --color-accent-dim:   rgba(200, 169, 110, 0.12);
+  --color-violet:       #7B6E8F;
+  --color-violet-dim:   rgba(123, 110, 143, 0.12);
+
+  --color-text-primary:   #E8E6F0;
+  --color-text-secondary: #9B98A8;
+  --color-text-muted:     #5A5868;
+
+  --color-danger:   #8B3A3A;
+  --color-danger-dim: rgba(139, 58, 58, 0.15);
+  --color-success:  #3A6B5A;
+  --color-success-dim: rgba(58, 107, 90, 0.15);
+
+  /* Typography */
+  --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+  /* Spacing */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radius */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.4);
+}

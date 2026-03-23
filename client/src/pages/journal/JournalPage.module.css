@@ -1,0 +1,129 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 800px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-1);
+}
+
+.sub {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.filters {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.filter {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.filter:hover {
+  color: var(--color-text-secondary);
+  border-color: var(--color-border);
+}
+
+.filterActive {
+  color: var(--color-accent);
+  border-color: rgba(200, 169, 110, 0.3);
+  background: var(--color-accent-dim);
+}
+
+/* Tag-specific filter chips */
+.filterTag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+}
+
+.filterTagActive {
+  color: var(--color-gold, #c8a96e);
+  border-color: color-mix(in srgb, var(--color-gold, #c8a96e) 40%, transparent);
+  background: color-mix(in srgb, var(--color-gold, #c8a96e) 10%, transparent);
+}
+
+.filterCount {
+  font-size: 0.5625rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  background: var(--color-surface-el);
+  border-radius: 999px;
+  padding: 0 4px;
+  line-height: 1.5;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.loading,
+.empty {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16) var(--space-8);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.error {
+  font-size: 0.875rem;
+  color: #c87070;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-danger-dim);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-md);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.pageInfo {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}

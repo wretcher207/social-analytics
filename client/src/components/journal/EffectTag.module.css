@@ -1,0 +1,61 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.effect {
+  color: #8fc8a8;
+  border-color: rgba(58, 107, 90, 0.5);
+  background: rgba(58, 107, 90, 0.08);
+}
+
+.negative {
+  color: #c87070;
+  border-color: rgba(139, 58, 58, 0.5);
+  background: rgba(139, 58, 58, 0.08);
+}
+
+.tag-variant {
+  color: var(--color-text-secondary);
+  border-color: var(--color-border);
+  background: var(--color-surface-el);
+}
+
+.terpene {
+  color: var(--color-accent);
+  border-color: rgba(200, 169, 110, 0.35);
+  background: var(--color-accent-dim);
+}
+
+.clickable {
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+.clickable:hover {
+  opacity: 0.75;
+}
+
+.remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  font-size: 0.875rem;
+  line-height: 1;
+  padding: 0;
+  margin-left: 2px;
+  transition: opacity var(--transition-fast);
+}
+.remove:hover {
+  opacity: 1;
+}
